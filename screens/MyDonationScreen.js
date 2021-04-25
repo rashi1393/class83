@@ -45,7 +45,9 @@ export default class MyDonationScreen extends Component {
    }
 
    sendBook=(bookDetails)=>{
+     
      if(bookDetails.request_status === "Book Sent"){
+      console.log(bookDetails)
        var requestStatus = "Donor Interested"
        db.collection("all_donations").doc(bookDetails.doc_id).update({
          "request_status" : "Donor Interested"
@@ -53,6 +55,7 @@ export default class MyDonationScreen extends Component {
        this.sendNotification(bookDetails,requestStatus)
      }
      else{
+      console.log(bookDetails)
        var requestStatus = "Book Sent"
        db.collection("all_donations").doc(bookDetails.doc_id).update({
          "request_status" : "Book Sent"

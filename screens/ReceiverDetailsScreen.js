@@ -21,7 +21,16 @@ export default class ReceiverDetailsScreen extends Component{
     }
   }
 
-
+  getDonorDetails=(userId)=>{
+    db.collection("users").where("email_id","==", userId).get()
+    .then((snapshot)=>{
+      snapshot.forEach((doc) => {
+        this.setState({
+          "userName" : doc.data().first_name + " " + doc.data().last_name
+        })
+      });
+    })
+  }
 
 getReceiverDetails(){
   db.collection('users').where('email_id','==',this.state.receiverId).get()
@@ -66,7 +75,8 @@ addNotification=()=>{
 }
 
 componentDidMount(){
-  this.getReceiverDetails()
+  this.getReceiverDetails();
+  this.getDonorDetails(this.state.userId);
 }
 
 
